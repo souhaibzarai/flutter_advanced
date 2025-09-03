@@ -3,6 +3,6 @@ import 'package:flutter_advanced/doc_app.dart';
 
 import 'core/routes/app_router.dart';
 
-void main() { 
+void main() {
   runApp(DocApp(appRouter: AppRouter()));
 }
