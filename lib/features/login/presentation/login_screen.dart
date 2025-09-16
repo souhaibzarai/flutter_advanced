@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced/features/login/data/models/login_request_body.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/helpers/spacing.dart';
-import '../../../core/theming/styles.dart';
-import '../../../core/widgets/app_text_button.dart';
-import '../../../core/widgets/app_text_form_field.dart';
+import '/core/helpers/spacing.dart';
+import '/core/theming/styles.dart';
+import '/core/widgets/app_text_button.dart';
+import '../logic/cubit/login_cubit.dart';
 import 'widgets/dont_have_account_text.dart';
+import 'widgets/email_and_password.dart';
+import 'widgets/login_bloc_listener.dart';
 import 'widgets/terms_and_conditions_text.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+// ignore: must_be_immutable
+class LoginScreen extends StatelessWidget {
+  LoginScreen({super.key});
 
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  final GlobalKey formKey = GlobalKey<FormState>();
   bool isObscureText = true;
 
   @override
@@ -37,48 +36,31 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 verticalSpace(32),
-                Form(
-                  key: formKey,
-                  child: Column(
-                    children: [
-                      AppTextFormField(hintText: 'Email'),
-                      verticalSpace(16),
-                      AppTextFormField(
-                        hintText: 'Password',
-                        isObscureText: isObscureText,
-                        suffixIcon: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              isObscureText = !isObscureText;
-                            });
-                          },
-                          child: Icon(
-                            isObscureText
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                          ),
-                        ),
+                Column(
+                  children: [
+                    const EmailAndPassword(),
+                    verticalSpace(24),
+                    Align(
+                      alignment: AlignmentDirectional.centerEnd,
+                      child: Text(
+                        'Forgot Password?',
+                        style: TextStyles.font13BlueRegular,
                       ),
-                      verticalSpace(24),
-                      Align(
-                        alignment: AlignmentDirectional.centerEnd,
-                        child: Text(
-                          'Forgot Password?',
-                          style: TextStyles.font13BlueRegular,
-                        ),
-                      ),
-                      verticalSpace(48),
-                      AppTextButton(
-                        text: 'Login',
-                        textStyle: TextStyles.font16WhiteSemiBold,
-                        onPressed: () {}, //
-                      ),
-                      verticalSpace(16),
-                      const TermsAndConditionsText(),
-                      verticalSpace(48),
-                      const DontHaveAccountText(),
-                    ],
-                  ),
+                    ),
+                    verticalSpace(48),
+                    AppTextButton(
+                      text: 'Login',
+                      textStyle: TextStyles.font16WhiteSemiBold,
+                      onPressed: () {
+                        validateThenLogIn(context);
+                      },
+                    ),
+                    verticalSpace(16),
+                    const TermsAndConditionsText(),
+                    verticalSpace(48),
+                    const DontHaveAccountText(),
+                    const LoginBlocListener(),
+                  ],
                 ),
               ],
             ),
@@ -86,5 +68,17 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  void validateThenLogIn(BuildContext context) {
+    final loginCubit = context.read<LoginCubit>();
+    if (loginCubit.formKey.currentState!.validate()) {
+      loginCubit.emitLoginStates(
+        LoginRequestBody(
+          email: loginCubit.emailController.text,
+          password: loginCubit.passwordController.text,
+        ),
+      );
+    }
   }
 }

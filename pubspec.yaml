@@ -10,6 +10,7 @@ environment:
   sdk: ^3.8.1
 
 dependencies:
+  build_runner: ^2.8.0
   cupertino_icons: ^1.0.8
   flutter:
     sdk: flutter
@@ -23,7 +24,7 @@ dependencies:
   # For SVG support
   flutter_svg: ^2.2.0
   # For using immutable classes and union types
-  freezed: ^3.2.0
+  freezed: ^3.2.3
   freezed_annotation: ^3.1.0
   # Dependency Injection
   get_it: ^8.2.0
