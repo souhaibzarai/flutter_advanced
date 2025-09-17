@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/theming/styles.dart';
 
 class TermsAndConditionsText extends StatelessWidget {
-  const TermsAndConditionsText({
-    super.key,
-  });
+  const TermsAndConditionsText({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +21,7 @@ class TermsAndConditionsText extends StatelessWidget {
           ),
           TextSpan(
             text: '\nand ',
-            style: TextStyles.font13SecondaryRegular.copyWith(
-              height: 1.5,
-            ),
+            style: TextStyles.font13SecondaryRegular.copyWith(height: 1.5),
           ),
           TextSpan(
             text: 'Privacy Policy',

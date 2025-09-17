@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced/features/login/data/models/login_request_body.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '/core/helpers/spacing.dart';
@@ -71,14 +70,8 @@ class LoginScreen extends StatelessWidget {
   }
 
   void validateThenLogIn(BuildContext context) {
-    final loginCubit = context.read<LoginCubit>();
-    if (loginCubit.formKey.currentState!.validate()) {
-      loginCubit.emitLoginStates(
-        LoginRequestBody(
-          email: loginCubit.emailController.text,
-          password: loginCubit.passwordController.text,
-        ),
-      );
+    if (context.read<LoginCubit>().formKey.currentState!.validate()) {
+      context.read<LoginCubit>().emitLoginStates();
     }
   }
 }
