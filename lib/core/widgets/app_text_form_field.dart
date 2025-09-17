@@ -14,7 +14,7 @@ class AppTextFormField extends StatelessWidget {
   final TextStyle? textStyle;
   final Function(String value) validator;
   final TextEditingController? controller;
-
+  final AutovalidateMode? validationMode;
   const AppTextFormField({
     super.key,
     this.padding,
@@ -28,6 +28,7 @@ class AppTextFormField extends StatelessWidget {
     this.textStyle,
     required this.validator,
     this.controller,
+    this.validationMode,
   });
 
   @override
@@ -68,7 +69,9 @@ class AppTextFormField extends StatelessWidget {
         suffixIcon: suffixIcon,
         fillColor: backgroundColor ?? ColorsManager.extraLighterSecondary,
         filled: true,
+        prefixStyle: TextStyles.font14DarkBlueMedium,
       ),
+      autovalidateMode: validationMode,
       controller: controller,
       validator: (value) => validator(value!),
       obscureText: isObscureText ?? false,

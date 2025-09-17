@@ -18,12 +18,7 @@ class CustomValidation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        CircleAvatar(
-          radius: 2,
-          backgroundColor: isValid
-              ? Colors.green
-              : ColorsManager.secondaryColor,
-        ),
+        CircleAvatar(radius: 2, backgroundColor: ColorsManager.secondaryColor),
         horizontalSpace(6),
         Text(
           text,

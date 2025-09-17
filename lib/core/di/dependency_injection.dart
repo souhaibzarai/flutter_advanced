@@ -1,9 +1,12 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_advanced/core/networking/api_service.dart';
-import 'package:flutter_advanced/core/networking/dio_factory.dart';
-import 'package:flutter_advanced/features/login/data/repos/login_repo.dart';
-import 'package:flutter_advanced/features/login/logic/cubit/login_cubit.dart';
 import 'package:get_it/get_it.dart';
+
+import '/features/login/data/repos/login_repo.dart';
+import '/features/login/logic/cubit/login_cubit.dart';
+import '/features/sign_up/data/repos/sign_up_repo.dart';
+import '/features/sign_up/logic/sign_up_cubit.dart';
+import '../networking/api_service.dart';
+import '../networking/dio_factory.dart';
 
 final sl = GetIt.instance;
 
@@ -13,6 +16,10 @@ Future<void> initDependencies() async {
   sl.registerLazySingleton<ApiService>(() => ApiService(dio));
 
   // Login
-  sl.registerLazySingleton<LoginRepo>(() => LoginRepo(sl()));
-  sl.registerLazySingleton<LoginCubit>(() => LoginCubit(sl()));
+  sl.registerLazySingleton<LoginRepo>(() => LoginRepo(sl<ApiService>()));
+  sl.registerFactory<LoginCubit>(() => LoginCubit(sl<LoginRepo>()));
+
+  // Sign Up
+  sl.registerLazySingleton<SignUpRepo>(() => SignUpRepo(sl<ApiService>()));
+  sl.registerFactory<SignUpCubit>(() => SignUpCubit(sl<SignUpRepo>()));
 }

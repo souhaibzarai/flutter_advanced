@@ -32,4 +32,8 @@ class AppRegex {
   static bool hasMinLength(String password) {
     return RegExp(r'^(?=.{8,})').hasMatch(password);
   }
+
+  static bool isPhoneNumberValid(String phoneNumber) {
+    return RegExp(r'^(212)[0-9]{9}$').hasMatch(phoneNumber);
+  }
 }
