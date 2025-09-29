@@ -8,4 +8,6 @@ class ColorsManager {
   static const Color lighterSecondary = Color(0xFFEDEDED);
   static const Color extraLighterSecondary = Color(0xFFFDFDFF);
   static const Color darkBlue = Color(0xFF242424);
+  static const Color xLightSecondary = Color(0xFF616161);
+  static const Color lightGray = Color(0xFFF5F5F5);
 }

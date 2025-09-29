@@ -75,4 +75,28 @@ class TextStyles {
     fontWeight: FontWeightHelper.regular,
     color: ColorsManager.darkBlue,
   );
+
+  static const TextStyle font18DarkBlueBold = TextStyle(
+    fontSize: 18,
+    color: ColorsManager.darkBlue,
+    fontWeight: FontWeightHelper.bold,
+  );
+
+  static const TextStyle font13ExtraLightSecondaryRegular = TextStyle(
+    fontSize: 13,
+    color: ColorsManager.xLightSecondary,
+    fontWeight: FontWeightHelper.regular,
+  );
+
+  static const TextStyle font18WhiteMedium = TextStyle(
+    fontSize: 18,
+    color: Colors.white,
+    fontWeight: FontWeightHelper.medium,
+  );
+
+  static const TextStyle font12PrimaryRegular = TextStyle(
+    fontSize: 12,
+    color: ColorsManager.primaryColor,
+    fontWeight: FontWeightHelper.regular,
+  );
 }
