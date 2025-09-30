@@ -4,6 +4,8 @@ import '../helpers/font_weight_helper.dart';
 import 'colors.dart';
 
 class TextStyles {
+  const TextStyles._();
+
   static const TextStyle font24BlackBold = TextStyle(
     fontSize: 24,
     fontWeight: FontWeightHelper.bold,
@@ -98,5 +100,23 @@ class TextStyles {
     fontSize: 12,
     color: ColorsManager.primaryColor,
     fontWeight: FontWeightHelper.regular,
+  );
+
+  static const TextStyle font12DarkBlueRegular = TextStyle(
+    fontSize: 12,
+    color: ColorsManager.darkBlue,
+    fontWeight: FontWeightHelper.regular,
+  );
+
+  static const TextStyle font18DarkBlueSemiBold = TextStyle(
+    fontSize: 18,
+    color: ColorsManager.darkBlue,
+    fontWeight: FontWeightHelper.semiBold,
+  );
+
+  static const TextStyle font12SecondaryMedium = TextStyle(
+    fontSize: 12,
+    color: ColorsManager.secondaryColor,
+    fontWeight: FontWeightHelper.medium,
   );
 }
