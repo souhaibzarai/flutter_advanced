@@ -1,0 +1,24 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '/core/networking/api_result.dart';
+import '../data/repository/home_repo.dart';
+import 'home_state.dart';
+
+class HomeCubit extends Cubit<HomeState> {
+  final HomeRepo _homeRepo;
+  HomeCubit(this._homeRepo) : super(const HomeState.initial());
+
+  void getSpecializations() async {
+    emit(HomeState.specializationsLoading());
+    final result = await _homeRepo.getSpecializations();
+
+    result.when(
+      success: (specializationsResponseModel) {
+        emit(HomeState.specializationsSuccess(specializationsResponseModel));
+      },
+      failure: (errorHandler) {
+        emit(HomeState.specializationsError(errorHandler));
+      },
+    );
+  }
+}
