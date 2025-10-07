@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
-import '/core/helpers/spacing.dart';
-import '/core/theming/colors.dart';
-import '/core/theming/styles.dart';
+import '../../data/models/specializations_response_model.dart';
+import 'speciality_list_view_item.dart';
 
 class DoctorSpecialityListView extends StatelessWidget {
-  const DoctorSpecialityListView({super.key});
+  const DoctorSpecialityListView({
+    super.key,
+    required this.specializationsDataList,
+  });
+
+  final List<SpecializationsData?> specializationsDataList;
 
   @override
   Widget build(BuildContext context) {
@@ -14,26 +17,11 @@ class DoctorSpecialityListView extends StatelessWidget {
       height: 100,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: 8,
+        itemCount: specializationsDataList.length,
         itemBuilder: (context, index) {
-          return Container(
-            margin: EdgeInsetsDirectional.only(start: index == 0 ? 0 : 20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                  radius: 28,
-                  backgroundColor: ColorsManager.lightPrimaryColor,
-                  child: SvgPicture.asset(
-                    'assets/svgs/general-speciality.svg',
-                    height: 40,
-                    width: 40,
-                  ),
-                ),
-                verticalSpace(12),
-                Text('General', style: TextStyles.font12DarkBlueRegular),
-              ],
-            ),
+          return SpecialityListViewItem(
+            specializationIndex: index,
+            specialization: specializationsDataList[index],
           );
         },
       ),
