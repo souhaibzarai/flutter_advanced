@@ -19,7 +19,7 @@ class DocApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: appRouter.generateRoute,
-      initialRoute: Routes.onBoardingScreen,
+      initialRoute: Routes.homeScreen,
     );
   }
 }
