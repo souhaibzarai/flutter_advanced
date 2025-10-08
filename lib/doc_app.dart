@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
-import 'core/routes/app_router.dart';
-import 'core/theming/colors.dart';
 
+import 'core/helpers/constants.dart';
+import 'core/routes/app_router.dart';
 import 'core/routes/routes.dart';
+import 'core/theming/colors.dart';
 
 class DocApp extends StatelessWidget {
   final AppRouter appRouter;
 
-  const DocApp({required this.appRouter, super.key});
+  const DocApp({
+    required this.appRouter,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +23,9 @@ class DocApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: appRouter.generateRoute,
-      initialRoute: Routes.homeScreen,
+      initialRoute: isLoggedInUser
+          ? Routes.homeScreen
+          : Routes.onBoardingScreen,
     );
   }
 }
