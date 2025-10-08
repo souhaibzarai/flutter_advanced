@@ -38,6 +38,10 @@ dependencies:
   pretty_dio_logger: ^1.4.0
   # Firebase Dep
   firebase_core: ^4.1.0
+  # Flutter plugin for reading and writing simple key-value pairs
+  shared_preferences: ^2.5.3
+  # Flutter Secure Storage provides API to store data in secure storage.
+  flutter_secure_storage: ^9.2.4
 
 dev_dependencies:
   flutter_lints: ^5.0.0
