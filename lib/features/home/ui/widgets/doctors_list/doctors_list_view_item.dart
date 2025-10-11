@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '/core/helpers/spacing.dart';
 import '/core/theming/styles.dart';
-import '../../data/models/specializations_response_model.dart';
+import '../../../data/models/specializations_response_model.dart';
 
 class DoctorsListViewItem extends StatelessWidget {
   const DoctorsListViewItem({super.key, required this.doctorsModel});

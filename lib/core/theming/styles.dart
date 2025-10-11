@@ -108,6 +108,12 @@ class TextStyles {
     fontWeight: FontWeightHelper.regular,
   );
 
+  static const TextStyle font12DarkBlueBold = TextStyle(
+    fontSize: 12,
+    color: ColorsManager.darkBlue,
+    fontWeight: FontWeightHelper.bold,
+  );
+
   static const TextStyle font18DarkBlueSemiBold = TextStyle(
     fontSize: 18,
     color: ColorsManager.darkBlue,
