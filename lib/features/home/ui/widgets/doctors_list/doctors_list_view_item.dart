@@ -1,6 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '/core/helpers/spacing.dart';
+import '/core/theming/colors.dart';
 import '/core/theming/styles.dart';
 import '../../../data/models/specializations_response_model.dart';
 
@@ -15,15 +18,7 @@ class DoctorsListViewItem extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 16),
       child: Row(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadiusGeometry.circular(12),
-            child: Image.asset(
-              'assets/images/doctor-speciality-image.png',
-              width: 120,
-              height: 120,
-              fit: BoxFit.cover,
-            ),
-          ),
+          const DoctorCachedImage(),
           horizontalSpace(16),
           Expanded(
             child: Column(
@@ -48,6 +43,42 @@ class DoctorsListViewItem extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class DoctorCachedImage extends StatelessWidget {
+  const DoctorCachedImage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CachedNetworkImage(
+      imageUrl:
+          'https://i.pinimg.com/736x/f2/f6/72/f2f672b928ff6c3504e54d5caaa0d494.jpg',
+      progressIndicatorBuilder: (context, url, progress) {
+        return Shimmer.fromColors(
+          baseColor: ColorsManager.lightGray,
+          highlightColor: Colors.white,
+          child: Container(
+            height: 120,
+            width: 110,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        );
+      },
+      imageBuilder: (context, imageProvider) => Container(
+        width: 110,
+        height: 120,
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(12),
+          image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+        ),
       ),
     );
   }
