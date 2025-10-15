@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '/core/functions/functions.dart';
 import '/core/networking/api_result.dart';
 import '../data/models/sign_up_request_body.dart';
 import '../data/repos/sign_up_repo.dart';
@@ -34,11 +35,12 @@ class SignUpCubit extends Cubit<SignUpState> {
     );
 
     response.when(
-      success: (data) {
-        emit(SignUpState.signUpSuccess(data));
+      success: (signUpResponse) async {
+        await AppFunctions.saveUserToken(signUpResponse.userData.token);
+        emit(SignUpState.signUpSuccess(signUpResponse));
       },
-      failure: (error) {
-        emit(SignUpState.signUpError(error: error.apiErrorModel.message ?? ''));
+      failure: (apiErrorModel) {
+        emit(SignUpState.signUpError(apiErrorModel));
       },
     );
   }

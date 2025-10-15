@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced/core/helpers/spacing.dart';
-import 'package:flutter_advanced/features/home/ui/widgets/doctors_list/doctors_shimmer_loading.dart';
-import 'package:flutter_advanced/features/home/ui/widgets/specializations_list/speciality_shimmer_loading.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '/features/home/logic/home_cubit.dart';
 import '/features/home/logic/home_state.dart';
+import '/../core/helpers/extensions.dart';
+import '/../core/helpers/spacing.dart';
 import '../../../data/models/specializations_response_model.dart';
+import '../doctors_list/doctors_shimmer_loading.dart';
 import 'speciality_list_view.dart';
+import 'speciality_shimmer_loading.dart';
 
 class SpecializationsBlocBuilder extends StatelessWidget {
   const SpecializationsBlocBuilder({super.key});
@@ -27,7 +28,8 @@ class SpecializationsBlocBuilder extends StatelessWidget {
             return setupSuccess(specializationsDataList);
           },
 
-          specializationsError: (errorHandler) => setupError(),
+          specializationsError: (apiErrorModel) =>
+              setupError(context, message: apiErrorModel.getAllErrorMessages()),
 
           orElse: () {
             return const SizedBox.shrink();
@@ -56,7 +58,28 @@ class SpecializationsBlocBuilder extends StatelessWidget {
     );
   }
 
-  Widget setupError() {
-    return const SizedBox.shrink();
+  setupError(BuildContext context, {required String message}) {
+    context.pop();
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Icon(Icons.error, color: Colors.red, size: 40),
+          content: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            child: Text(message),
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                context.pop();
+              },
+              icon: const Icon(Icons.close),
+            ),
+          ],
+          // content: ,
+        );
+      },
+    );
   }
 }

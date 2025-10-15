@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/networking/api_error_handler.dart';
+import '/core/networking/api_error_model.dart';
 import '../../../data/models/specializations_response_model.dart';
 import '../../../logic/home_cubit.dart';
 import '../../../logic/home_state.dart';
@@ -18,7 +18,7 @@ class DoctorsBlocBuilder extends StatelessWidget {
       builder: (context, state) {
         return state.maybeWhen(
           doctorsSuccess: (doctors) => setupSuccess(doctors),
-          doctorsError: (errorHandler) => setupError(errorHandler),
+          doctorsError: (apiErrorModel) => setupError(apiErrorModel),
           orElse: () => const SizedBox.shrink(),
         );
       },
@@ -29,7 +29,7 @@ class DoctorsBlocBuilder extends StatelessWidget {
     return DoctorsListView(doctorsList: doctors ?? []);
   }
 
-  Widget setupError(ErrorHandler errorHandler) {
+  Widget setupError(ApiErrorModel apiErrorModel) {
     return const SizedBox.shrink();
   }
 }
