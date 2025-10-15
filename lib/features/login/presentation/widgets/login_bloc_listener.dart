@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced/core/helpers/extensions.dart';
-import 'package:flutter_advanced/core/routes/routes.dart';
-import 'package:flutter_advanced/features/login/logic/cubit/login_cubit.dart';
-import 'package:flutter_advanced/features/login/logic/cubit/login_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '/core/helpers/extensions.dart';
+import '/core/routes/routes.dart';
+import '../../logic/cubit/login_cubit.dart';
+import '../../logic/cubit/login_state.dart';
 
 class LoginBlocListener extends StatelessWidget {
   const LoginBlocListener({super.key});
@@ -12,10 +13,12 @@ class LoginBlocListener extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
       listenWhen: (previous, current) =>
-          current is Loading || current is Success || current is Error,
+          current is LoginLoading ||
+          current is LoginSuccess ||
+          current is LoginError,
       listener: (context, state) {
         state.whenOrNull(
-          loading: () => showDialog(
+          loginLoading: () => showDialog(
             context: context,
             builder: (context) => const Center(
               widthFactor: 40,
@@ -23,30 +26,42 @@ class LoginBlocListener extends StatelessWidget {
               child: CircularProgressIndicator(),
             ),
           ),
-          success: (data) {
+          loginSuccess: (data) {
             context.pop();
             context.pushNamed(Routes.homeScreen);
           },
-          error: (err) {
-            context.pop();
-            showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                content: Text(err),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      context.pop();
-                    },
-                    child: Text('Got It'),
-                  ),
-                ],
-              ),
-            );
-          },
+          loginError: (apiErrorModel) => setupErrorState(
+            context,
+            message: apiErrorModel.getAllErrorMessages(),
+          ),
         );
       },
       child: const SizedBox.shrink(),
+    );
+  }
+
+  setupErrorState(BuildContext context, {required String message}) {
+    context.pop();
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Icon(Icons.error, color: Colors.red, size: 40),
+          content: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            child: Text(message),
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                context.pop();
+              },
+              icon: const Icon(Icons.close),
+            ),
+          ],
+          // content: ,
+        );
+      },
     );
   }
 }
